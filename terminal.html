@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberKali Hub - Terminal Simulator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="cyber-grid"></div>
+    <div class="scan-line"></div>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <!-- Back to Main Button -->
+    <div class="terminal-navigation">
+        <a href="index.html" class="back-to-main">
+            <i class="fas fa-arrow-left"></i> Back to Commands
+        </a>
+        <div class="terminal-title">
+            <i class="fas fa-terminal"></i>
+            KALI LINUX TERMINAL SIMULATOR
+        </div>
+    </div>
+    
+    <!-- Main Terminal Container -->
+    <div class="main-container terminal-page">
+        <!-- Terminal Simulator -->
+        <div class="terminal-simulator" id="terminalSimulator">
+            <div class="terminal-header">
+                <div class="terminal-title">
+                    <i class="fas fa-terminal"></i>
+                    PRACTICE TERMINAL
+                    <span style="font-size: 0.9rem; color: #aaa; margin-left: 10px;">
+                        Safe environment - no real commands executed
+                    </span>
+                </div>
+                <div class="terminal-controls">
+                    <button class="terminal-btn" id="terminalClear">
+                        <i class="fas fa-eraser"></i> Clear
+                    </button>
+                    <button class="terminal-btn" id="terminalReset">
+                        <i class="fas fa-redo"></i> Reset
+                    </button>
+                    <button class="terminal-btn" id="terminalHelp">
+                        <i class="fas fa-question-circle"></i> Help
+                    </button>
+                    <button class="terminal-btn" id="terminalCommands">
+                        <i class="fas fa-list"></i> Commands
+                    </button>
+                </div>
+            </div>
+            
+            <div class="terminal-body" id="terminalBody">
+                <div class="terminal-output" id="terminalOutput">
+                    <!-- Terminal output will be here -->
+                </div>
+            </div>
+            
+            <div class="terminal-input-area">
+                <div class="terminal-input-prompt" id="terminalPrompt">kali@cyberhub:~$</div>
+                <input type="text" class="terminal-input" id="terminalInput" 
+                    placeholder="Type a command (try 'help' to see available commands)" 
+                    autocomplete="off" autofocus>
+                <div class="terminal-hint">
+                    <i class="fas fa-lightbulb"></i> Press ↑↓ for history, Tab for suggestions
+                </div>
+            </div>
+            
+            <!-- Autocomplete suggestions -->
+            <div class="autocomplete-suggestions" id="autocompleteSuggestions"></div>
+        </div>
+        
+        <!-- Quick Command Reference -->
+        <div class="quick-reference">
+            <h3><i class="fas fa-bolt"></i> Quick Commands</h3>
+            <div class="reference-grid">
+                <div class="reference-category">
+                    <h4>Basic Commands</h4>
+                    <code>ls</code> <code>pwd</code> <code>cd</code> <code>clear</code>
+                    <code>help</code> <code>history</code> <code>whoami</code>
+                </div>
+                <div class="reference-category">
+                    <h4>File Operations</h4>
+                    <code>cat</code> <code>mkdir</code> <code>rm</code> <code>cp</code>
+                    <code>mv</code> <code>touch</code> <code>find</code>
+                </div>
+                <div class="reference-category">
+                    <h4>System Info</h4>
+                    <code>uname -a</code> <code>df -h</code> <code>free -h</code>
+                    <code>ps aux</code> <code>top</code>
+                </div>
+                <div class="reference-category">
+                    <h4>Network</h4>
+                    <code>ping</code> <code>ifconfig</code> <code>netstat</code>
+                    <code>curl</code> <code>wget</code>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Terminal Tips -->
+        <div class="terminal-tips">
+            <h3><i class="fas fa-graduation-cap"></i> Learning Tips</h3>
+            <ul>
+                <li>Type <code>help</code> to see all available commands</li>
+                <li>Press <kbd>Tab</kbd> for command auto-completion</li>
+                <li>Use <kbd>↑</kbd> and <kbd>↓</kbd> to navigate command history</li>
+                <li>Click any command to copy it to clipboard</li>
+                <li>This is a safe simulation - no real system commands are executed</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Load the same script for terminal functionality -->
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.location.pathname.includes('terminal.html') || 
+                document.querySelector('.terminal-page')) {
+                
+                initMatrixEffect();
+                
+                // Initialize terminal simulator with enhanced features
+                window.terminalSimulator = new TerminalSimulator();
+                
+                document.getElementById('terminalCommands')?.addEventListener('click', function() {
+                    window.location.href = 'index.html';
+                });
+                
+                document.querySelectorAll('.reference-category code').forEach(code => {
+                    code.addEventListener('click', function() {
+                        const command = this.textContent;
+                        
+                        // Use the existing copyToClipboard function from script.js
+                        if (typeof copyToClipboard === 'function') {
+                            copyToClipboard(command);
+                        } else {
+                            // Fallback if function not available
+                            navigator.clipboard.writeText(command).catch(() => {
+                                const textArea = document.createElement('textarea');
+                                textArea.value = command;
+                                document.body.appendChild(textArea);
+                                textArea.select();
+                                document.execCommand('copy');
+                                document.body.removeChild(textArea);
+                            });
+                        }
+                        
+                        // Show notification
+                        const notification = document.createElement('div');
+                        notification.style.cssText = `
+                            position: fixed;
+                            top: 20px;
+                            right: 20px;
+                            background: rgba(0, 255, 157, 0.9);
+                            color: black;
+                            padding: 10px 20px;
+                            border-radius: 8px;
+                            font-family: 'Orbitron', sans-serif;
+                            z-index: 1000;
+                            animation: slideIn 0.3s ease;
+                        `;
+                        notification.textContent = `Copied: ${command}`;
+                        document.body.appendChild(notification);
+                        
+                        setTimeout(() => {
+                            notification.remove();
+                        }, 2000);
+                        
+                        // Also execute in terminal if focused
+                        const terminalInput = document.getElementById('terminalInput');
+                        if (terminalInput && document.activeElement === terminalInput) {
+                            terminalInput.value = command;
+                            terminalInput.focus();
+                        }
+                    });
+                });
+                
+                // Auto-focus terminal input
+                setTimeout(() => {
+                    const terminalInput = document.getElementById('terminalInput');
+                    if (terminalInput) {
+                        terminalInput.focus();
+                    }
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>

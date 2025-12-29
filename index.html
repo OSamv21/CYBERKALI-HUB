@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberKali Hub - Interactive Command Interface</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Ubuntu+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Effects -->
+    <div class="cyber-grid"></div>
+    <div class="scan-line"></div>
+    <div class="matrix-bg" id="matrixBg"></div>
+    
+    <!-- Overlay for modals -->
+    <div class="overlay" id="overlay"></div>
+    
+    <!-- Command Usage Panel -->
+    <div class="usage-panel" id="usagePanel">
+        <div class="usage-header">
+            <div class="usage-title" id="usageCommand">Command</div>
+            <button class="usage-close" id="usageClose">&times;</button>
+        </div>
+        <div class="usage-content" id="usageContent">
+            <!-- Content will be filled by JavaScript -->
+        </div>
+    </div>
+    
+    <!-- Notification -->
+    <div class="cyber-notification" id="notification">
+        <div class="notification-header">
+            <div class="notification-title" id="notificationTitle">Notification</div>
+            <button class="notification-close" id="notificationClose">&times;</button>
+        </div>
+        <div class="notification-body" id="notificationBody">Content goes here</div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Header -->
+        <header class="cyber-header">
+            <div class="header-glow"></div>
+            <h1 class="main-title">CYBERKALI HUB</h1>
+            <p class="subtitle">Interactive Penetration Testing Command Interface</p>
+            <p class="tagline">Explore, search, and master 200+ Kali Linux commands with detailed explanations, usage examples, and real-time filtering</p>
+        </header>
+        
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="search-container">
+                <div class="search-wrapper">
+                    <input type="text" class="cyber-search" id="searchInput" placeholder="Enter command, category, or keyword...">
+                    <button class="search-btn" id="searchButton">
+                        <i class="fas fa-search"></i> SCAN
+                    </button>
+                </div>
+                
+                <div class="search-stats">
+                    <span id="totalCommands">Total Commands: 200+</span>
+                    <span id="searchTime">Ready</span>
+                </div>
+                
+                <div class="search-categories" id="categoryFilters">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Dashboard Stats -->
+        <section class="dashboard-stats">
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-terminal"></i></div>
+                <div class="stat-value" id="totalCommandsStat">200+</div>
+                <div class="stat-label">Total Commands</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="stat-value">6</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                <div class="stat-value" id="dangerousCommands">12</div>
+                <div class="stat-label">Dangerous Commands</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon"><i class="fas fa-bolt"></i></div>
+                <div class="stat-value">100%</div>
+                <div class="stat-label">Interactive</div>
+            </div>
+        </section>
+        
+        <!-- Results Section -->
+        <section class="results-section" id="resultsSection">
+            <div class="results-header">
+                <div class="results-count" id="resultsCount">0 results found</div>
+                <button class="clear-search" id="clearSearch">Clear Search</button>
+            </div>
+            <div class="results-grid" id="resultsGrid">
+            </div>
+        </section>
+        
+        <!-- Quick Access -->
+        <div class="quick-access">
+            <button class="quick-btn" id="showAll">
+                <i class="fas fa-globe"></i> View All Commands
+            </button>
+            <button class="quick-btn" id="showDangerous">
+                <i class="fas fa-exclamation-triangle"></i> Dangerous Commands
+            </button>
+            <button class="quick-btn" id="showCommon">
+                <i class="fas fa-star"></i> Most Used
+            </button>
+            <button class="quick-btn" id="copyAll">
+                <i class="fas fa-copy"></i> Export All
+            </button>
+            <button class="quick-btn" id="openTerminal">
+                <i class="fas fa-terminal"></i> Open Terminal Simulator
+            </button>
+        </div>
+        
+        <!-- Command Categories -->
+        <section class="command-categories" id="commandCategories">
+        </section>
+        
+        <!-- Footer -->
+        <footer class="cyber-footer">
+            <div class="footer-links">
+                <a href="#" class="footer-link" id="aboutLink">About</a>
+                <a href="https://github.com/OSamv21/Omar-Shakir" class="footer-link" id="contactLink">Contact</a>
+                <a href="#" class="footer-link" id="printLink">Print Design</a>
+            </div>
+            <p class="copyright">
+                CyberKali Hub v1.0 | Designed for educational and testing purposes only<br>
+                © 2026 Kali Linux Community 
+            </p>
+        </footer>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
